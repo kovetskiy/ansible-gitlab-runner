@@ -105,6 +105,18 @@
   - restart_gitlab_runner
   - restart_gitlab_runner_macos
 
+- name: Set runner environment option
+  lineinfile:
+    dest: "{{ temp_runner_config.path }}"
+    regexp: '^\s*environment ='
+    line: '  environment = {{ gitlab_runner.env_vars|default("[]") | to_json }}'
+    insertafter: '^\s*executor ='
+    state: present
+    backrefs: yes
+  check_mode: no
+  notify: restart_gitlab_runner
+  - restart_gitlab_runner_macos
+
 
 #### [runners.docker] section ####
 - name: Set runner docker image option
