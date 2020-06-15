@@ -114,7 +114,8 @@
     state: present
     backrefs: yes
   check_mode: no
-  notify: restart_gitlab_runner
+  notify:
+  - restart_gitlab_runner
   - restart_gitlab_runner_macos
 
 
